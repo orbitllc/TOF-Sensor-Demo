@@ -78,16 +78,14 @@ protected:
      */
     static PeopleCounter *_instance;
 
+    /**
+     * @brief This function simplifies the display and supports testing in the field.
+     * 
+     * The display options are set in the PeopleCounterConfig file as the TENFOOTDISPLAY declation
+    */
     void printBigNumbers(int number);
 
     int count = 0;
     int limit = DEFAULT_PEOPLE_LIMIT;
-    
-    bool prevZ1 = false;
-    bool prevZ2 = false;
-    bool prevInside = false;
-    int  entry = 0;
-    int  exit = 0;
-
 };
 #endif  /* __PEOPLECOUNTER_H */

@@ -50,9 +50,6 @@ void PeopleCounter::loop(){                // This function is only called if th
         if (atTheThreshold) {
           atTheThreshold = false;
           if (oldOccupancyState == 2) {
-            #if PEOPLECOUNTER_DEBUG
-            Log.info("Entered the room");
-            #endif
             occupancyCount++; 
           }
         }
@@ -63,9 +60,6 @@ void PeopleCounter::loop(){                // This function is only called if th
         if (atTheThreshold) {
           atTheThreshold = false;
           if (oldOccupancyState == 1) {
-            #if PEOPLECOUNTER_DEBUG
-            Log.info("Left the room");
-            #endif
             occupancyCount--;
           }
         }
@@ -110,118 +104,107 @@ void PeopleCounter::setLimit(int value){
 }
 
 void PeopleCounter::printBigNumbers(int number) {
-  if (number < 0){
-    Log.info("        ");
-    Log.info("        ");    
-    Log.info("        ");
-    Log.info("--------");
-    Log.info("        ");
-    Log.info("        ");
-    Log.info("        ");
-  } 
-
   Log.info("  ");
 
   switch (abs(number)) {
     case 0:
-      Log.info("  0000  ");
-      Log.info(" 0    0 ");
-      Log.info("0      0");
-      Log.info("0      0");  
-      Log.info("0      0");     
-      Log.info(" 0    0 ");
-      Log.info("  0000  ");
+      Log.info("%s  0000  ", (number < 0) ? "      " : "");
+      Log.info("%s 0    0 ", (number < 0) ? "      " : "");
+      Log.info("%s0      0", (number < 0) ? "      " : "");
+      Log.info("%s0      0", (number < 0) ? "------" : "");  
+      Log.info("%s0      0", (number < 0) ? "      " : "");     
+      Log.info("%s 0    0 ", (number < 0) ? "      " : "");
+      Log.info("%s  0000  ", (number < 0) ? "      " : "");
     break;
 
     case 1:
-      Log.info("    11  ");
-      Log.info("   1 1  ");
-      Log.info("     1  ");
-      Log.info("     1  ");
-      Log.info("     1  ");
-      Log.info("     1  ");
-      Log.info("     1  ");
-      Log.info("   11111");
+      Log.info("%s    11  ", (number < 0) ? "      " : "");
+      Log.info("%s   1 1  ", (number < 0) ? "      " : "");
+      Log.info("%s     1  ", (number < 0) ? "      " : "");
+      Log.info("%s     1  ", (number < 0) ? "------" : "");
+      Log.info("%s     1  ", (number < 0) ? "      " : "");
+      Log.info("%s     1  ", (number < 0) ? "      " : "");
+      Log.info("%s   11111", (number < 0) ? "      " : "");
     break;
 
     case 2:
-      Log.info("  2222  ");
-      Log.info(" 2    22");
-      Log.info("     2  ");
-      Log.info("   2    ");
-      Log.info("  2     ");
-      Log.info("22     2");
-      Log.info("2222222 ");
+      Log.info("%s  2222  ", (number < 0) ? "      " : "");
+      Log.info("%s 2    22", (number < 0) ? "      " : "");
+      Log.info("%s     2  ", (number < 0) ? "      " : "");
+      Log.info("%s   2    ", (number < 0) ? "------" : "");
+      Log.info("%s  2     ", (number < 0) ? "      " : "");
+      Log.info("%s22     2", (number < 0) ? "      " : "");
+      Log.info("%s2222222 ", (number < 0) ? "      " : "");
       break;
 
       case 3:
-      Log.info("  3333  ");
-      Log.info(" 3    3 ");
-      Log.info("       3");
-      Log.info("   333  ");
-      Log.info("       3");
-      Log.info(" 3    3 ");
-      Log.info("  3333  ");
+      Log.info("%s  3333  ", (number < 0) ? "      " : "");
+      Log.info("%s 3    3 ", (number < 0) ? "      " : "");
+      Log.info("%s       3", (number < 0) ? "      " : "");
+      Log.info("%s   333  ", (number < 0) ? "------" : "");
+      Log.info("%s       3", (number < 0) ? "      " : "");
+      Log.info("%s 3    3 ", (number < 0) ? "      " : "");
+      Log.info("%s  3333  ", (number < 0) ? "      " : "");
       break;
 
       case 4:
-      Log.info("4      4");
-      Log.info("4      4");
-      Log.info("4      4");
-      Log.info("  4444  ");
-      Log.info("       4");
-      Log.info("       4");
-      Log.info("       4");
+      Log.info("%s4      4", (number < 0) ? "      " : "");
+      Log.info("%s4      4", (number < 0) ? "      " : "");
+      Log.info("%s4      4", (number < 0) ? "      " : "");
+      Log.info("%s  4444  ", (number < 0) ? "------" : "");
+      Log.info("%s       4", (number < 0) ? "      " : "");
+      Log.info("%s       4", (number < 0) ? "      " : "");
+      Log.info("%s       4", (number < 0) ? "      " : "");
       break;
 
       case 5:
-      Log.info("  555555");
-      Log.info(" 5      ");
-      Log.info(" 555555 ");
-      Log.info("      5 ");
-      Log.info("       5");
-      Log.info("      5 ");
-      Log.info(" 555555 ");
+      Log.info("%s  555555", (number < 0) ? "      " : "");
+      Log.info("%s 5      ", (number < 0) ? "      " : "");
+      Log.info("%s 555555 ", (number < 0) ? "      " : "");
+      Log.info("%s      5 ", (number < 0) ? "------" : "");
+      Log.info("%s       5", (number < 0) ? "      " : "");
+      Log.info("%s      5 ", (number < 0) ? "      " : "");
+      Log.info("%s 555555 ", (number < 0) ? "      " : "");
       break;
 
       case 6:
-      Log.info("  666666");
-      Log.info(" 6      ");
-      Log.info("  66666 ");
-      Log.info("6      6");
-      Log.info("6      6");
-      Log.info(" 6    6 ");
-      Log.info("  6666  ");
+      Log.info("%s  666666", (number < 0) ? "      " : "");
+      Log.info("%s 6      ", (number < 0) ? "      " : "");
+      Log.info("%s  66666 ", (number < 0) ? "      " : "");
+      Log.info("%s6      6", (number < 0) ? "------" : "");
+      Log.info("%s6      6", (number < 0) ? "      " : "");
+      Log.info("%s 6    6 ", (number < 0) ? "      " : "");
+      Log.info("%s  6666  ", (number < 0) ? "      " : "");
       break;
 
       case 7:
-      Log.info("  777777");
-      Log.info(" 7     7");
-      Log.info("      7 ");
-      Log.info("     7  ");
-      Log.info("    7   ");
-      Log.info("   7    ");
-      Log.info("  7     ");
+      Log.info("%s  777777", (number < 0) ? "      " : "");
+      Log.info("%s 7     7", (number < 0) ? "      " : "");
+      Log.info("%s      7 ", (number < 0) ? "      " : "");
+      Log.info("%s     7  ", (number < 0) ? "------" : "");
+      Log.info("%s    7   ", (number < 0) ? "      " : "");
+      Log.info("%s   7    ", (number < 0) ? "      " : "");
+      Log.info("%s  7     ", (number < 0) ? "      " : "");
       break;
 
       case 8:
-      Log.info("  8888  ");
-      Log.info(" 8    8 ");
-      Log.info("8      8");
-      Log.info("  8888  ");
-      Log.info("8      8");
-      Log.info(" 8    8 ");
-      Log.info("  8888  ");
+      Log.info("%s  8888  ", (number < 0) ? "      " : "");
+      Log.info("%s 8    8 ", (number < 0) ? "      " : "");
+      Log.info("%s8      8", (number < 0) ? "      " : "");
+      Log.info("%s  8888  ", (number < 0) ? "------" : "");
+      Log.info("%s8      8", (number < 0) ? "      " : "");
+      Log.info("%s 8    8 ", (number < 0) ? "      " : "");
+      Log.info("%s  8888  ", (number < 0) ? "      " : "");
       break;
 
       case 9:
-      Log.info(" 99999  ");
-      Log.info("9     9 ");
-      Log.info("9      9");
-      Log.info(" 99999  ");
-      Log.info("       9");
-      Log.info("      9 ");
-      Log.info(" 999999 ");
+      Log.info("%s 99999  ", (number < 0) ? "      " : "");
+      Log.info("%s9     9 ", (number < 0) ? "      " : "");
+      Log.info("%s9      9", (number < 0) ? "      " : "");
+      Log.info("%s 99999  ", (number < 0) ? "------" : "");
+      Log.info("%s       9", (number < 0) ? "      " : "");
+      Log.info("%s      9 ", (number < 0) ? "      " : "");
+      Log.info("%s 999999 ", (number < 0) ? "      " : "");
       break;
 
       default:

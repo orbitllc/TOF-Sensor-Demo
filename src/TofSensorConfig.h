@@ -2,7 +2,7 @@
 #define TOFSENSOR_CONFIG_H
 
 /***   Mounting Parameters   ***/
-#define PERSON_THRESHOLD 1200             // This counts folks of normal height (and we run in short mode)
+#define PERSON_THRESHOLD 1500             // This counts folks of normal height (and we run in short mode)
 #define DOOR_THRESHOLD 200                // This excludes counting the door
 
 /***   Debugging   ***/
