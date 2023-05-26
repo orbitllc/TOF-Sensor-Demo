@@ -5,5 +5,5 @@
         "*.ino": "cpp"
     },
     "particle.targetPlatform": "boron",
-    "particle.targetDevice": "Boron-Dev"
+    "particle.targetDevice": "Boron-Verizon-Test"
 }

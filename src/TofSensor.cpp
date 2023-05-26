@@ -13,10 +13,9 @@
 #include "PeopleCounterConfig.h"
 #include "TofSensor.h"
 
-uint8_t opticalCenters[2] = {58,193};  //90,194 with 4x4 worked
-//uint8_t opticalCenters[2] = {58,193};
+uint8_t opticalCenters[2] = {OPTICAL_CENTER_ZONE_1,OPTICAL_CENTER_ZONE_2}; 
 int zoneDistances[2] = {0,0};
-byte occupancyState = 0;      // This is the current occupancy state (occupied or not, zone 1 (ones) and zone 2 (twos)
+int occupancyState = 0;      // This is the current occupancy state (occupied or not, zone 1 (ones) and zone 2 (twos)
 
 TofSensor *TofSensor::_instance;
 
@@ -46,7 +45,9 @@ void TofSensor::setup(){
   
   // Here is where we set the device properties
   myTofSensor.setDistanceModeLong();
-  myTofSensor.setTimingBudgetInMs(20);
+  myTofSensor.setSigmaThreshold(40);        // Default is 45 - this will make it harder to get a valid result - Range 1 - 16383
+  myTofSensor.setSignalThreshold(1000);     // Default is 1500 raising value makes it harder to get a valid results- Range 1-16383
+  myTofSensor.setTimingBudgetInMs(15);      // Was 20mSec
 
   if (TofSensor::performCalibration()) Log.info("Calibration Complete");
   else {
@@ -72,14 +73,15 @@ bool TofSensor::performCalibration() {
 }
 
 int TofSensor::loop(){                         // This function will update the current distance / occupancy for each zone.  It will return true if occupancy changes                    
-  byte oldOccupancyState = occupancyState;
+  int oldOccupancyState = occupancyState;
   occupancyState = 0;
   unsigned long startedRanging;
 
   for (byte zone = 0; zone < 2; zone++){
     myTofSensor.stopRanging();
     myTofSensor.clearInterrupt();
-    myTofSensor.setROI(zoneX,zoneY,opticalCenters[zone]);
+    myTofSensor.setROI(ZONE_X,ZONE_Y,opticalCenters[zone]);
+    delay(1);
     myTofSensor.startRanging();
 
     startedRanging = millis();
@@ -96,7 +98,7 @@ int TofSensor::loop(){                         // This function will update the 
     #endif
 
     bool occupied = ((zoneDistances[zone] < PERSON_THRESHOLD) && (zoneDistances[zone] > DOOR_THRESHOLD));
-    occupancyState += occupied * (zone +1);
+    occupancyState += occupied * (zone + 1);
   }
 
   #if PEOPLECOUNTER_DEBUG
@@ -114,7 +116,7 @@ int TofSensor::getZone2() {
   return zoneDistances[1];
 }
 
-byte TofSensor::getOccupancy() {
+int TofSensor::getOccupancyState() {
   return occupancyState;
 }
 

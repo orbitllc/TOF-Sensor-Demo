@@ -66,7 +66,7 @@ public:
      * @details Uses BCD to assign the value (1 occupied/ 0 not occupied) / (zone1 - ones, zone2 - twos)
      * Some examples value = 1 (zone1 occupied, zone2 not occupied), value = 3 - (both zones occupied)
     */
-    byte getOccupancy();
+    int getOccupancyState();
 
     /**
      * @brief This function is called as part of the startup process to ensure the sensor does not see any obstructions

@@ -9,12 +9,14 @@
 #define DEBUG_COUNTER 0
 #define SENSOR_TIMEOUT 500
 
-/*
-#define zoneX 15
-#define zoneY 8
-*/
-#define zoneX 8
-#define zoneY 3
+// Detection zone dimensions and optical centers
+#define ZONE_X 8                         // This is the width (accross the door with the sensor long axis parallel to the threshold) of the active SPADS
+#define ZONE_Y 4                         // This is the depth (Through the door - By default Zone 1 is inside and Zone is outside - when sensor mounted on the inside doorframe)
+
+#define OPTICAL_CENTER_ZONE_1 59 
+#define OPTICAL_CENTER_ZONE_2 195
+
+
 
 /** The TofSensor has a receiver array consisting of 16X16 Single Photon Diodes. 
  *  By default, all of them are used but you can reduce the receiver to a region of interest (ROI).
@@ -24,7 +26,7 @@
  *  Here is the function call: setROI(uint8_t x, uint8_t y, uint8_t opticalCenter); 
  *
  ***   Here is the Table of Optical Centers   ***
-  *
+  * Pin 1
   * 128,136,144,152,160,168,176,184,  192,200,208,216,224,232,240,248
   * 129,137,145,153,161,169,177,185,  193,201,209,217,225,233,241,249
   * 130,138,146,154,162,170,178,186,  194,202,210,218,226,234,242,250
@@ -41,6 +43,6 @@
   * 123,115,107, 99, 91, 83, 75, 67,  59, 51, 43, 35, 27, 19, 11, 3
   * 122,114,106, 98, 90, 82, 74, 66,  58, 50, 42, 34, 26, 18, 10, 2
   * 121,113,105, 97, 89, 81, 73, 65,  57, 49, 41, 33, 25, 17, 9, 1
-  * 120,112,104, 96, 88, 80, 72, 64,  56, 48, 40, 32, 24, 16, 8, 0 Pin 1
+  * 120,112,104, 96, 88, 80, 72, 64,  56, 48, 40, 32, 24, 16, 8, 0
   */
 #endif

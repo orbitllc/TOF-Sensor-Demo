@@ -36,14 +36,15 @@ void PeopleCounter::setup() {
 }
 
 void PeopleCounter::loop(){                // This function is only called if there is a change in occupancy state
-    static byte oldOccupancyState = 0;
+    static int oldOccupancyState = 0;       // Need to remember these for past state path
     static bool atTheThreshold = false;
-    static bool oldOccupancyCount = occupancyCount;
+    int oldOccupancyCount = occupancyCount;
 
-    switch (TofSensor::instance().getOccupancy()) {
+    switch (TofSensor::instance().getOccupancyState()) {
 
       case 0:                               // No occupancy detected
         oldOccupancyState = 0;
+        atTheThreshold = false;
       break;
 
       case 1:
@@ -77,12 +78,11 @@ void PeopleCounter::loop(){                // This function is only called if th
       break;
     }
 
-    #if TENFOOTDISPLAY
+   #if TENFOOTDISPLAY
     if (oldOccupancyCount != occupancyCount) printBigNumbers(occupancyCount);
-    #else
+   #else
     if (oldOccupancyCount != occupancyCount) Log.info("Occupancy %s %i",(occupancyCount > oldOccupancyCount) ? "increased to" : "decreased to", occupancyCount);
-    #endif
-    oldOccupancyCount = occupancyCount;
+   #endif
 }
 
 int PeopleCounter::getCount(){

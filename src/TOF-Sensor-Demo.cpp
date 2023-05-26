@@ -18,6 +18,7 @@
 
 // v1.00 - For testing purposes put into "testing mode" to get rapid output via usb serial
 // v2.00 - Will stay disconnected to simplfy code - Just trying to implement directionality
+// v2.01 - First version for testing
 
 #include <Wire.h>
 #include "ErrorCodes.h"
