@@ -19,6 +19,7 @@
 // v1.00 - For testing purposes put into "testing mode" to get rapid output via usb serial
 // v2.00 - Will stay disconnected to simplfy code - Just trying to implement directionality
 // v2.01 - First version for testing
+// v2.02 - Changing oritentation to match ST Micro example code
 
 #include <Wire.h>
 #include "ErrorCodes.h"
@@ -35,7 +36,7 @@ SYSTEM_THREAD(ENABLED);
 const int shutdownPin = D2;                       // Pin to shut down the device - active low
 const int intPin =      D3;                       // Hardware interrupt - poliarity set in the library
 const int blueLED =     D7;
-char statusMsg[64];
+char statusMsg[64] = "Startup Complete.  Running version 2.02";
 
 void setup(void)
 {
@@ -55,7 +56,6 @@ void setup(void)
   PeopleCounter::instance().setup();
   PeopleCounter::instance().setCount(1);
 
-  snprintf(statusMsg,sizeof(statusMsg),"Startup - Complete");
   Log.info(statusMsg);
 
   digitalWrite(blueLED, LOW);                   // Signal setup complete

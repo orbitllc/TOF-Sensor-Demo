@@ -2,7 +2,7 @@
 #define TOFSENSOR_CONFIG_H
 
 /***   Mounting Parameters   ***/
-#define PERSON_THRESHOLD 1500             // This counts folks of normal height (and we run in short mode)
+#define PERSON_THRESHOLD 1800             // This counts folks of normal height (and we run in short mode)
 #define DOOR_THRESHOLD 200                // This excludes counting the door
 
 /***   Debugging   ***/
@@ -10,11 +10,12 @@
 #define SENSOR_TIMEOUT 500
 
 // Detection zone dimensions and optical centers
-#define ZONE_X 8                         // This is the width (accross the door with the sensor long axis parallel to the threshold) of the active SPADS
-#define ZONE_Y 4                         // This is the depth (Through the door - By default Zone 1 is inside and Zone is outside - when sensor mounted on the inside doorframe)
+#define COLUMNS_OF_SPADS 8                         // This is the width (accross the door with the sensor long axis perpendicular to the threshold) of the active SPADS
+#define ROWS_OF_SPADS    6                         // This is the depth (Through the door - when sensor mounted on the inside doorframe)
 
-#define OPTICAL_CENTER_ZONE_1 59 
-#define OPTICAL_CENTER_ZONE_2 195
+// Will focus on the SPAD array of 6 rows and 8 columns
+#define FRONT_ZONE_CENTER     159
+#define BACK_ZONE_CENTER      239
 
 
 

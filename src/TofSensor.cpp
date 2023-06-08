@@ -13,7 +13,7 @@
 #include "PeopleCounterConfig.h"
 #include "TofSensor.h"
 
-uint8_t opticalCenters[2] = {OPTICAL_CENTER_ZONE_1,OPTICAL_CENTER_ZONE_2}; 
+uint8_t opticalCenters[2] = {FRONT_ZONE_CENTER,BACK_ZONE_CENTER}; 
 int zoneDistances[2] = {0,0};
 int occupancyState = 0;      // This is the current occupancy state (occupied or not, zone 1 (ones) and zone 2 (twos)
 
@@ -45,9 +45,9 @@ void TofSensor::setup(){
   
   // Here is where we set the device properties
   myTofSensor.setDistanceModeLong();
-  myTofSensor.setSigmaThreshold(40);        // Default is 45 - this will make it harder to get a valid result - Range 1 - 16383
-  myTofSensor.setSignalThreshold(1000);     // Default is 1500 raising value makes it harder to get a valid results- Range 1-16383
-  myTofSensor.setTimingBudgetInMs(15);      // Was 20mSec
+  myTofSensor.setSigmaThreshold(45);        // Default is 45 - this will make it harder to get a valid result - Range 1 - 16383
+  myTofSensor.setSignalThreshold(1500);     // Default is 1500 raising value makes it harder to get a valid results- Range 1-16383
+  myTofSensor.setTimingBudgetInMs(20);      // Was 20mSec
 
   if (TofSensor::performCalibration()) Log.info("Calibration Complete");
   else {
@@ -80,7 +80,7 @@ int TofSensor::loop(){                         // This function will update the 
   for (byte zone = 0; zone < 2; zone++){
     myTofSensor.stopRanging();
     myTofSensor.clearInterrupt();
-    myTofSensor.setROI(ZONE_X,ZONE_Y,opticalCenters[zone]);
+    myTofSensor.setROI(ROWS_OF_SPADS,COLUMNS_OF_SPADS,opticalCenters[zone]);
     delay(1);
     myTofSensor.startRanging();
 
