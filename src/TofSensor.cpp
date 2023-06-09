@@ -49,6 +49,9 @@ void TofSensor::setup(){
   myTofSensor.setSignalThreshold(1500);     // Default is 1500 raising value makes it harder to get a valid results- Range 1-16383
   myTofSensor.setTimingBudgetInMs(20);      // Was 20mSec
 
+  while (TofSensor::loop() == SENSOR_BUFFRER_NOT_FULL) {delay(10);}; // Wait for the buffer to fill up
+  Log.info("Buffer is full - will now calibrate");
+
   if (TofSensor::performCalibration()) Log.info("Calibration Complete");
   else {
     Log.info("Initial calibration failed - wait 10 secs and reset");
@@ -75,6 +78,10 @@ bool TofSensor::performCalibration() {
 int TofSensor::loop(){                         // This function will update the current distance / occupancy for each zone.  It will return true if occupancy changes                    
   int oldOccupancyState = occupancyState;
   occupancyState = 0;
+  static uint16_t Distances[2][DISTANCES_ARRAY_SIZE]; // This is the array of distances for each zone
+  static uint8_t DistancesTableSize[2] = {0,0};
+  uint16_t MinDistance;
+
   unsigned long startedRanging;
 
   for (byte zone = 0; zone < 2; zone++){
@@ -91,13 +98,36 @@ int TofSensor::loop(){                         // This function will update the 
         return SENSOR_TIMEOUT_ERROR;
       }
     }
-    zoneDistances[zone] = myTofSensor.getDistance();
+
     #if DEBUG_COUNTER
     Log.info("Zone%d (%dx%d %d SPADs with optical center %d) = %imm",zone+1,myTofSensor.getROIX(), myTofSensor.getROIY(), myTofSensor.getSpadNb(),opticalCenters[zone],zoneDistances[zone]);
     delay(500);
     #endif
 
-    bool occupied = ((zoneDistances[zone] < PERSON_THRESHOLD) && (zoneDistances[zone] > DOOR_THRESHOLD));
+    // Add just picked distance to the table of the corresponding zone
+    if (DistancesTableSize[zone] < DISTANCES_ARRAY_SIZE) {
+      Distances[zone][DistancesTableSize[zone]] = myTofSensor.getDistance();;
+      DistancesTableSize[zone] ++;
+      return SENSOR_BUFFRER_NOT_FULL;
+    }
+    else {
+      for (int i=1; i<DISTANCES_ARRAY_SIZE; i++) {
+        Distances[zone][i-1] = Distances[zone][i];
+        Distances[zone][DISTANCES_ARRAY_SIZE-1] = myTofSensor.getDistance();
+      }
+    }
+    
+    // pick up the min distance
+    MinDistance = Distances[zone][0];
+    if (DistancesTableSize[zone] >= 2) {
+      for (int i=1; i<DistancesTableSize[zone]; i++) {
+        if (Distances[zone][i] < MinDistance)
+          MinDistance = Distances[zone][i];
+      }
+    }
+
+    zoneDistances[zone] = MinDistance;
+    bool occupied = ((MinDistance < PERSON_THRESHOLD) && (MinDistance > DOOR_THRESHOLD));
     occupancyState += occupied * (zone + 1);
   }
 

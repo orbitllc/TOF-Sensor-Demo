@@ -20,6 +20,7 @@
 // v2.00 - Will stay disconnected to simplfy code - Just trying to implement directionality
 // v2.01 - First version for testing
 // v2.02 - Changing oritentation to match ST Micro example code
+// v2.03 - Added a buffer to find the minimum deistance in buffer set in the config file
 
 #include <Wire.h>
 #include "ErrorCodes.h"
@@ -36,7 +37,7 @@ SYSTEM_THREAD(ENABLED);
 const int shutdownPin = D2;                       // Pin to shut down the device - active low
 const int intPin =      D3;                       // Hardware interrupt - poliarity set in the library
 const int blueLED =     D7;
-char statusMsg[64] = "Startup Complete.  Running version 2.02";
+char statusMsg[64] = "Startup Complete.  Running version 2.03";
 
 void setup(void)
 {

@@ -2,8 +2,10 @@
 #define TOFSENSOR_CONFIG_H
 
 /***   Mounting Parameters   ***/
-#define PERSON_THRESHOLD 1800             // This counts folks of normal height (and we run in short mode)
-#define DOOR_THRESHOLD 200                // This excludes counting the door
+#define PERSON_THRESHOLD 1800             // This counts folks of normal height walking through the door
+#define DOOR_THRESHOLD 200                // This excludes counting the door  
+#define DISTANCES_ARRAY_SIZE 5           // How many samples do we buffer for each zone - minimum is 2
+
 
 /***   Debugging   ***/
 #define DEBUG_COUNTER 0
