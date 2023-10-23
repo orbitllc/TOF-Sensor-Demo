@@ -37,7 +37,7 @@ SYSTEM_THREAD(ENABLED);
 const int shutdownPin = D2;                       // Pin to shut down the device - active low
 const int intPin =      D3;                       // Hardware interrupt - poliarity set in the library
 const int blueLED =     D7;
-char statusMsg[64] = "Startup Complete.  Running version 2.03";
+char statusMsg[64] = "Startup Complete.  Running version 3.0";
 
 void setup(void)
 {
