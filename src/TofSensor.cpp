@@ -105,20 +105,20 @@ int TofSensor::loop(){                         // This function will update the 
     }
 
     #if DEBUG_COUNTER
-    Log.info("Zone%d (%dx%d %d SPADs with optical center %d) = %ikcps/SPAD. Signal/SPAD: %d Ambient/SPAD: %d",zone+1,myTofSensor.getROIX(), myTofSensor.getROIY(), myTofSensor.getSpadNb(),opticalCenters[zone],zoneSignalPerSpad[zone],myTofSensor.getSignalPerSpad(), myTofSensor.getAmbientPerSpad());
-    delay(500);
+    Log.info("Zone%d (%dx%d %d SPADs with optical center %d) = %ikcps/SPAD. Signal/SPAD: %d Ambient/SPAD: %d",zo/
     #endif
 
     zoneSignalPerSpad[zone] = myTofSensor.getSignalPerSpad(); // - getAmbientPerSpad()??
-    bool occupied = (zoneSignalPerSpad[zone] >= (zoneBaselines[zone] + PERSON_THRESHOLD));
-    occupancyState += occupied * (zone + 1);
   }
+
+  occupancyState += (zoneSignalPerSpad[0] >= (zoneBaselines[0] + PERSON_THRESHOLD) || (zoneSignalPerSpad[0] <= (zoneBaselines[0] - (PERSON_THRESHOLD)))) ? 0 : 1;
+  occupancyState += (zoneSignalPerSpad[1] >= (zoneBaselines[1] + PERSON_THRESHOLD) || (zoneSignalPerSpad[1] <= (zoneBaselines[1] - (PERSON_THRESHOLD)))) ? 0 : 2;
 
   #if PEOPLECOUNTER_DEBUG
   if (occupancyState != oldOccupancyState) Log.info("Occupancy state changed from %d to %d (%ikcps/SPAD / %ikcps/SPAD)", oldOccupancyState, occupancyState, zoneSignalPerSpad[0], zoneSignalPerSpad[1]);
   #endif
 
-  return (occupancyState != oldOccupancyState);     // Let us know if the occupancy state has changed
+  return (occupancyState != oldOccupancyState);     // Let us know if the occupancy state has progressed in the algorithm.
 }
 
 int TofSensor::getZone1() {
