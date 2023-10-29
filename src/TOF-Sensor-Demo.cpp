@@ -58,7 +58,6 @@ void setup(void)
 
   TofSensor::instance().setup();
   PeopleCounter::instance().setup();
-  PeopleCounter::instance().setCount(1);
 
   Log.info(statusMsg);
 

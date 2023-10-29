@@ -78,6 +78,16 @@ class StackArray {
     // get an item from the stack.
     T peek () const;
 
+    /** 
+     *  MODIFICATION TO ORIGINAL CODE
+     * 
+     *  Author: Alex Bowen
+     *          Orbit Development, LLC
+     *  Date Modified: October 28, 2023
+     *  Description: Retrieves the item from the stack at the specified index.
+    */
+    T peekIndex (const int idx) const;
+
     // check if the stack is empty.
     bool isEmpty () const;
 
@@ -97,14 +107,8 @@ class StackArray {
     // exit report method in case of error.
     void exit (const char * m) const;
 
-    // led blinking method in case of error.
-    void blink () const;
-
     // the initial size of the stack.
     static const int initialSize = 2;
-
-    // the pin number of the on-board led.
-    static const int ledPin = 13;
 
     Print * printer; // the printer of the stack.
     T * contents;    // the array of the stack.
@@ -158,7 +162,6 @@ void StackArray<T>::resize (const int s) {
   // set the new size of the stack.
   size = s;
 }
-
 
 template<typename T>
 void StackArray<T>::push (const T i) {
@@ -216,6 +219,25 @@ T StackArray<T>::peek () const {
   return contents[top - 1];
 }
 
+/** 
+ *  MODIFICATION TO ORIGINAL CODE
+ * 
+ *  Author: Alex Bowen
+ *          Orbit Development, LLC
+ *  Date Modified: October 28, 2023
+ *  Description: Retrieves the item from the stack at the specified index.
+*/
+template<typename T>
+T StackArray<T>::peekIndex (const int idx) const {
+  // check if the stack is empty.
+  if (isEmpty ())
+    exit ("STACK: can't peek item from stack: stack is empty.");
+  if (idx >= top || idx < 0)
+    exit ("STACK: can't peek item from stack: invalid index requested.");
+  // get the item from the array at index.
+  return contents[idx];
+}
+
 // check if the stack is empty.
 template<typename T>
 bool StackArray<T>::isEmpty () const {
@@ -246,26 +268,6 @@ void StackArray<T>::exit (const char * m) const {
   // print the message if there is a printer.
   if (printer)
     printer->println (m);
-
-  // loop blinking until hardware reset.
-  blink ();
-}
-
-// led blinking method in case of error.
-template<typename T>
-void StackArray<T>::blink () const {
-  // set led pin as output.
-  pinMode (ledPin, OUTPUT);
-
-  // continue looping until hardware reset.
-  while (true) {
-    digitalWrite (ledPin, HIGH); // sets the LED on.
-    delay (250);                 // pauses 1/4 of second.
-    digitalWrite (ledPin, LOW);  // sets the LED off.
-    delay (250);                 // pauses 1/4 of second.
-  }
-
-  // solution selected due to lack of exit() and assert().
 }
 
 #endif // _STACKARRAY_H
