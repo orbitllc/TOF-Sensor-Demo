@@ -52,13 +52,13 @@ void PeopleCounter::loop(){                                               // Thi
       case 0:                         
         stateStack.push(0);       // First value MUST be a 0
         #if PEOPLECOUNTER_DEBUG
-          Log.info("[Line 58]: SEQUENCE [SIZE = %i]: [%i] <--- %i", stateStack.count(), stateStack.peekIndex(0), newOccupancyState);
+          Log.info("[Line 55]: SEQUENCE [SIZE = %i]: [%i] <--- %i", stateStack.count(), stateStack.peekIndex(0), newOccupancyState);
         #endif                                           
         break;
       case 1:
         stateStack.push(newOccupancyState);                             // Push to the stack without checking for impossibilities
         #if PEOPLECOUNTER_DEBUG
-          Log.info("[Line 64]: SEQUENCE [SIZE = %i]: [%i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), newOccupancyState);
+          Log.info("[Line 61]: SEQUENCE [SIZE = %i]: [%i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), newOccupancyState);
         #endif
         break;                                                           
       case 2:
@@ -67,16 +67,16 @@ void PeopleCounter::loop(){                                               // Thi
         #if PEOPLECOUNTER_DEBUG
           switch (stateStack.count()){
             case 1:
-              Log.info("[Line 58]: SEQUENCE [SIZE = %i]: [%i] <--- %i", stateStack.count(), stateStack.peekIndex(0), newOccupancyState);
+              Log.info("[Line 70]: SEQUENCE [SIZE = %i]: [%i] <--- %i", stateStack.count(), stateStack.peekIndex(0), newOccupancyState);
               break;
             case 2:
-              Log.info("[Line 64]: SEQUENCE [SIZE = %i]: [%i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), newOccupancyState);
+              Log.info("[Line 73]: SEQUENCE [SIZE = %i]: [%i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), newOccupancyState);
               break;
             case 3:
-              Log.info("[Line 73a]: SEQUENCE [SIZE = %i]: [%i, %i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), stateStack.peekIndex(2), newOccupancyState);
+              Log.info("[Line 76]: SEQUENCE [SIZE = %i]: [%i, %i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), stateStack.peekIndex(2), newOccupancyState);
               break;
             case 4:
-              Log.info("[Line 72a]: SEQUENCE [SIZE = %i]: [%i, %i, %i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), stateStack.peekIndex(2), stateStack.peekIndex(3), newOccupancyState);
+              Log.info("[Line 79]: SEQUENCE [SIZE = %i]: [%i, %i, %i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), stateStack.peekIndex(2), stateStack.peekIndex(3), newOccupancyState);
               break;
           }
         #endif
@@ -89,16 +89,16 @@ void PeopleCounter::loop(){                                               // Thi
           #if PEOPLECOUNTER_DEBUG
             switch (stateStack.count()){
               case 1:
-                Log.info("[Line 58]: SEQUENCE [SIZE = %i]: [%i] <--- %i", stateStack.count(), stateStack.peekIndex(0), newOccupancyState);
+                Log.info("[Line 92]: SEQUENCE [SIZE = %i]: [%i] <--- %i", stateStack.count(), stateStack.peekIndex(0), newOccupancyState);
                 break;
               case 2:
-                Log.info("[Line 64]: SEQUENCE [SIZE = %i]: [%i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), newOccupancyState);
+                Log.info("[Line 95]: SEQUENCE [SIZE = %i]: [%i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), newOccupancyState);
                 break;
               case 3:
-                Log.info("[Line 73a]: SEQUENCE [SIZE = %i]: [%i, %i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), stateStack.peekIndex(2), newOccupancyState);
+                Log.info("[Line 98]: SEQUENCE [SIZE = %i]: [%i, %i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), stateStack.peekIndex(2), newOccupancyState);
                 break;
               case 4:
-                Log.info("[Line 72a]: SEQUENCE [SIZE = %i]: [%i, %i, %i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), stateStack.peekIndex(2), stateStack.peekIndex(3), newOccupancyState);
+                Log.info("[Line 101]: SEQUENCE [SIZE = %i]: [%i, %i, %i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), stateStack.peekIndex(2), stateStack.peekIndex(3), newOccupancyState);
                 break;
             }
           #endif        
@@ -112,7 +112,7 @@ void PeopleCounter::loop(){                                               // Thi
   if(stateStack.count() == 5){                                        // If the stack is finished ...
     char states[56];                                                          // ... turn it into a string by popping all values off the stack...
       #if PEOPLECOUNTER_DEBUG
-        Log.info("[Line 94]: SEQUENCE [SIZE = %i]: [%i, %i, %i, %i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), stateStack.peekIndex(2), stateStack.peekIndex(3), stateStack.peekIndex(4), newOccupancyState);
+        Log.info("[Line 115]: SEQUENCE [SIZE = %i]: [%i, %i, %i, %i, %i] <--- %i", stateStack.count(), stateStack.peekIndex(0), stateStack.peekIndex(1), stateStack.peekIndex(2), stateStack.peekIndex(3), stateStack.peekIndex(4), newOccupancyState);
       #endif 
       snprintf(states, sizeof(states), "%i%i%i%i%i", stateStack.pop(), stateStack.pop(), stateStack.pop(), stateStack.pop(), stateStack.pop());   
       if(strcmp(states, "01320")){
