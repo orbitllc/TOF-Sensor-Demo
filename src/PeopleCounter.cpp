@@ -149,7 +149,7 @@ void PeopleCounter::setLimit(int value){
   occupancyLimit = value;
 }
 
-int PeopleCounter::applyMagicalStateMapCorrections(int newOccupancyState){
+void PeopleCounter::applyMagicalStateMapCorrections(int newOccupancyState){
   int needsCleanup = 0;
   tempStack.push(newOccupancyState);                              // Push the new occupancyState to the tempStack
   while(stateStack.count() > 1){                                  // Go through the stack containing prior states
@@ -181,7 +181,6 @@ int PeopleCounter::applyMagicalStateMapCorrections(int newOccupancyState){
       stateStack.pop();                                                       // ... remove the top of the stack.
     } while (stateStack.peek() != newOccupancyState); 
   } 
-  return 0;
 }
 
 void PeopleCounter::printBigNumbers(int number) {
